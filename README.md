@@ -4,8 +4,6 @@ IT/AI の技術メモや最新情報を共有するブログサイトです。
 
 **サイト:** https://devpediacode.com/
 
-![Webサイトトップ](./Learning_webtop.jpg)
-
 ## 技術スタック
 
 - **フレームワーク:** Gatsby (v2)
