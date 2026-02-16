@@ -24,7 +24,7 @@
     "gatsby-source-microcms": "^3.0.0",
     "gatsby-transformer-remark": "^6.11.0",
     "gatsby-transformer-sharp": "^2.5.14",
-    "node-sass": "^4.14.1",
+    "sass": "^1.57.0",
     "parse5": "^7.1.2",
     "popper.js": "^1.16.1",
     "prismjs": "^1.29.0",
@@ -66,5 +66,8 @@
   },
   "bugs": {
     "url": "https://github.com/mik3y/gatsby-starter-basic-bootstrap/issues"
+  },
+  "overrides": {
+    "sharp": "0.32.6"
   }
 }
