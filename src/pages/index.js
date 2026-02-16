@@ -78,20 +78,7 @@ const IndexPage = ({ data }) => {
           <tr>
             <img src={homeImg} className="home-img" alt="Home" />
           </tr>
-          <tr className="index-category borderStyle">
-            <td>
-              <button
-                className="index-category-btn"
-                onClick={() => handleCategoryClick("IOT")}
-              >
-                IOT
-              </button>
-            </td>
-          </tr>
-          <tr className="borderStyle">
-            <td colSpan="2">{createArticleCards(data.iot.edges, "IOT")}</td>
-          </tr>
-          <tr className="index-category borderStyle">
+<tr className="index-category borderStyle">
             <td>
               <button
                 className="index-category-btn"
@@ -143,28 +130,7 @@ export default IndexPage;
 
 export const query = graphql`
   query {
-    iot: allMicrocmsInformation(
-      limit: 4
-      sort: { fields: date, order: DESC }
-      filter: { category: { category: { eq: "IOT" } } }
-    ) {
-      edges {
-        node {
-          id
-          date
-          title
-          category {
-            category
-          }
-          image {
-            url
-            height
-            width
-          }
-        }
-      }
-    }
-    ai: allMicrocmsInformation(
+ai: allMicrocmsInformation(
       limit: 4
       sort: { fields: date, order: DESC }
       filter: { category: { category: { eq: "AI" } } }
