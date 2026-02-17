@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useStaticQuery, graphql } from "gatsby";
+import { useStaticQuery, graphql, Link } from "gatsby";
 import { Container } from "react-bootstrap";
 import { Helmet } from "react-helmet";
 import Header from "./header";
@@ -39,8 +39,17 @@ const Layout = ({ children }) => {
         </main>
       </div>
 
-      <footer className="footer mt-auto py-3 text-center">
-        © {new Date().getFullYear()} DevpediaCode. All rights reserved.
+      <footer className="footer mt-auto py-3">
+        <div className="footer-links">
+          <Link to="/abouthis">サイトについて</Link>
+          <Link to="/information">記事一覧</Link>
+          <Link to="/contact">お問い合わせ</Link>
+          <Link to="/privacypolicy">プライバシーポリシー</Link>
+          <Link to="/termsofservice">利用規約</Link>
+        </div>
+        <div className="footer-copyright">
+          © 2025 DevpediaCode. All rights reserved.
+        </div>
       </footer>
     </div>
   );

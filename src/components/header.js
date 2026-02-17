@@ -10,7 +10,7 @@ const Header = ({ siteTitle }) => (
     <Navbar.Brand as={Link} href="/" className="siteTitle">
       <img src={logo} alt="Home" />
     </Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+    <Navbar.Toggle aria-controls="basic-navbar-nav" aria-label="メニューを開く" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
         <NavItem>

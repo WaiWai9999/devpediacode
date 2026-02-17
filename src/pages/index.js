@@ -27,6 +27,7 @@ const IndexPage = ({ data }) => {
                 <Card.Img
                   variant="top"
                   src={node.image.url}
+                  alt={node.title}
                   className="article-card-img"
                 />
               </div>
