@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useStaticQuery, graphql } from "gatsby";
 import { Container } from "react-bootstrap";
@@ -39,10 +39,8 @@ const Layout = ({ children }) => {
         </main>
       </div>
 
-      <footer className="footer mt-auto py-3 bg-light text-black text-center">
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        Devpediacode Developer Team
+      <footer className="footer mt-auto py-3 text-center">
+        © {new Date().getFullYear()} DevpediaCode. All rights reserved.
       </footer>
     </div>
   );

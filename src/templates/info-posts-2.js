@@ -369,8 +369,8 @@ const InformationPost = ({ data }) => {
           </Row>
           <Row className="back-link-row">
             <Col>
-              <Link to="/" className="btn btn-primary back-link-design">
-                Back to Home
+              <Link to="/information" className="btn btn-primary back-link-design">
+                記事一覧へ戻る
               </Link>
             </Col>
             <Col className="d-flex justify-content-end">

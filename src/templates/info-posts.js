@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, graphql } from "gatsby";
-import { Table, Col, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
 import Helmet from "react-helmet";
@@ -31,7 +31,6 @@ import "prismjs/components/prism-yaml";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { darcula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import ReactHtmlParser from "react-html-parser";
-import homeImg from "../images/home.png";
 
 import {
   FacebookShareButton,
@@ -50,12 +49,12 @@ const customDarcula = {
     ...darcula['code[class*="language-"]'],
     textShadow: "none",
     fontSize: "16px",
-    background: "black",
+    background: "#1E1E2E",
   },
   "@media (max-width: 767px)": {
     'code[class*="language-"]': {
       fontSize: "12px",
-      backgroundColor: "black",
+      backgroundColor: "#1E1E2E",
     },
   },
 };
@@ -74,31 +73,12 @@ const InformationPost = ({ data }) => {
   useEffect(() => {
     setShareUrl(window.location.href);
     Prism.highlightAll();
-    //adjustImageSize();
-    //window.addEventListener("resize", adjustImageSize);
   }, []);
-
-  // Function to adjust image size based on its dimensions
-  const adjustImageSize = () => {
-    const imageElement = document.querySelector(".imgStyle");
-    if (window.innerWidth <= 767) {
-      if (imageElement) {
-        if (imageElement.width >= 350) {
-          imageElement.style.width = "100%";
-        } else {
-          imageElement.style.width = "50%";
-        }
-      }
-    } else {
-      imageElement.style.width = "100%"; // Reset to 100% width for larger screens
-    }
-  };
 
   const getCodeElements = htmlString => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, "text/html");
 
-    // Extract language from code block comment, e.g., // language: javascript
     const codeElement = doc.querySelector("code");
     const classAttribute = codeElement?.getAttribute("class") || "";
     let language = classAttribute?.replace("language-", "") ?? "javascript";
@@ -178,6 +158,27 @@ const InformationPost = ({ data }) => {
               </CustomSyntaxHighlighter>
             );
           }
+
+          // Check if paragraph contains code-like patterns (starts with # or contains assignments)
+          const paragraphText = domNode.children
+            .filter(child => child.type === "text")
+            .map(child => child.data)
+            .join("")
+            .trim();
+
+          if (
+            paragraphText.includes("\n") ||
+            paragraphText.match(/^#\s/) ||
+            paragraphText.match(/^(npx|npm|yarn|pip|python|node|ruby|java|gcc|mvn)\s/) ||
+            (paragraphText.includes("=") &&
+              (paragraphText.includes("(") || paragraphText.includes("[")))
+          ) {
+            return (
+              <CustomSyntaxHighlighter language="bash">
+                {paragraphText}
+              </CustomSyntaxHighlighter>
+            );
+          }
         } else if (domNode.name === "table") {
           const tableContent = ReactHtmlParser(domNode.outerHTML);
           return React.cloneElement(tableContent, {
@@ -186,13 +187,13 @@ const InformationPost = ({ data }) => {
         } else if (domNode.name === "br") {
           return <div dangerouslySetInnerHTML={<br />} />;
         } else if (domNode.name.match(/^h[1-6]/i)) {
-          const headingLevel = Number(domNode.name.charAt(1)); // Extract heading level
+          const headingLevel = Number(domNode.name.charAt(1));
           return (
             <React.Fragment key={domNode.index}>
               <br key={"break"} />
               {React.createElement(`h${headingLevel}`, {
-                key: domNode.index, // You need to provide the appropriate index here
-                dangerouslySetInnerHTML: { __html: domNode.innerHTML }, // Use innerHTML to preserve the heading's HTML content
+                key: domNode.index,
+                dangerouslySetInnerHTML: { __html: domNode.innerHTML },
               })}
             </React.Fragment>
           );
@@ -215,7 +216,6 @@ const InformationPost = ({ data }) => {
             }
           }
         } else if (domNode.name === "figure") {
-          console.log("figure");
           const srcAttribute = domNode.srcAttribute || "";
           const altAttribute = domNode.altAttribute || "";
           return (
@@ -249,95 +249,78 @@ const InformationPost = ({ data }) => {
   return (
     <Layout>
       <SEO title={post.title} />
-      <Row>
-        <Col className="space"></Col>
-      </Row>
-      <Row>
-        <Col className="space"></Col>
-      </Row>
-      <div className="table-container">
-        <Table className="post-details-table">
-          <Row className="margin-left-5">
-            <Col className="title-obj">
-              <h1 className="post-details-title-font">{post.title}</h1>
-            </Col>
-          </Row>
-          <Row className="margin-left-5">
-            <Col>
-              <div className="post-details">
-                <p className="dateStyle">{`Posted at ${post.date}`}</p>
-              </div>
-            </Col>
-          </Row>
-          <Row className="adjust-Row">
-            <Col className="space"></Col>
-          </Row>
-          <Row className="post-details-body">{parseContent(post.body)}</Row>
-          <Row>
-            <Col className="space"></Col>
-          </Row>
-          <Row className="editorial">
-            <Col>
-              <h3>
-                <b>DevpediaCode編集部</b>
-              </h3>
-              <p>
-                DevpediaCodeはWeb、AI、Iot、ローコードなどプログラムに関する最新ITテーマの情報を発信するメディアです。
-              </p>
-              <p>お問合せ下記のURLからお願いします。</p>
-              <a href="https://devpediacode.com/contact" target="_blank">
-                https://devpediacode.com/contact
-              </a>
-            </Col>
-          </Row>
-          <Row className="back-link-row">
-            <Col>
-              <Link to="/" className="btn btn-primary back-link-design">
-                Back to Home
-              </Link>
-            </Col>
-            <Col className="d-flex justify-content-end">
-              <div className="details-share-button-container d-flex align-items-center">
-                <span
-                  style={{
-                    marginRight: "0.5rem",
-                    marginLeft: "0.5rem",
-                  }}
-                >
-                  Share:
-                </span>
-                <FacebookShareButton
-                  url={shareUrl}
-                  className="Demo__some-network__share-button"
-                  quote={"Dummy text!"}
-                  hashtag="#muo"
-                >
-                  <FacebookIcon size={32} round />
-                </FacebookShareButton>
+      <Helmet>
+        <meta property="og:title" content={post.title} />
+        <meta property="og:type" content="article" />
+        <meta property="og:image" content={post.image.url} />
+        <meta
+          property="og:url"
+          content={`https://devpediacode.com/information/${post.category.category}/${post.id}`}
+        />
+      </Helmet>
 
-                <TwitterShareButton url={shareUrl} hashtag="#muo">
-                  <TwitterIcon size={32} round />
-                </TwitterShareButton>
-                <LineShareButton url={shareUrl}>
-                  <LineIcon size={32} round />
-                </LineShareButton>
-                <EmailShareButton
-                  url={shareUrl}
-                  subject="Devpediacodeの記事一覧共有"
-                  body={emailBody}
-                >
-                  <EmailIcon size={32} round />
-                </EmailShareButton>
-              </div>
-              <Helmet>
-                <meta property="og:title" content={post.title} />
-                <meta property="og:type" content="article" />
-                <meta property="og:image" content={post.image.url} />
-                <meta property="og:url" content={`/information/${post.id}`} />
-              </Helmet>
-            </Col>
-          </Row>
-        </Table>
+      <div className="post-container">
+        <article className="post-article">
+          <header className="post-header">
+            <h1 className="post-details-title-font">{post.title}</h1>
+            <p className="dateStyle">{`Posted at ${post.date}`}</p>
+          </header>
+
+          <div className="post-content">
+            {parseContent(post.body)}
+          </div>
+
+          <div className="editorial">
+            <h3>
+              <b>DevpediaCode編集部</b>
+            </h3>
+            <p>
+              DevpediaCodeはWeb、AIなどプログラムに関する最新ITテーマの情報を発信するメディアです。
+            </p>
+            <p>お問合せ下記のURLからお願いします。</p>
+            <a href="https://devpediacode.com/contact" target="_blank" rel="noopener noreferrer">
+              https://devpediacode.com/contact
+            </a>
+          </div>
+
+          <div className="back-link-row">
+            <Row>
+              <Col>
+                <Link to="/information" className="btn btn-primary back-link-design">
+                  記事一覧へ戻る
+                </Link>
+              </Col>
+              <Col className="d-flex justify-content-end">
+                <div className="details-share-button-container d-flex align-items-center">
+                  <span style={{ marginRight: "0.5rem", marginLeft: "0.5rem" }}>
+                    Share:
+                  </span>
+                  <FacebookShareButton
+                    url={shareUrl}
+                    className="Demo__some-network__share-button"
+                    quote={post.title}
+                    hashtag="#DevpediaCode"
+                  >
+                    <FacebookIcon size={32} round />
+                  </FacebookShareButton>
+                  <TwitterShareButton url={shareUrl} hashtag="#DevpediaCode">
+                    <TwitterIcon size={32} round />
+                  </TwitterShareButton>
+                  <LineShareButton url={shareUrl}>
+                    <LineIcon size={32} round />
+                  </LineShareButton>
+                  <EmailShareButton
+                    url={shareUrl}
+                    subject="Devpediacodeの記事一覧共有"
+                    body={emailBody}
+                  >
+                    <EmailIcon size={32} round />
+                  </EmailShareButton>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </article>
       </div>
     </Layout>
   );

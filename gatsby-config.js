@@ -1,7 +1,7 @@
 module.exports = {
   siteMetadata: {
     title: `DevpediaCode`,
-    description: `IT/IOT/AIの技術メモや最新情報を共有`,
+    description: `IT/AIの技術メモや最新情報を共有`,
     author: `@Devpedia`,
     siteUrl: `https://devpediacode.com`,
   },
@@ -91,5 +91,4 @@ module.exports = {
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
   ],
-  pathPrefix: "gatsby-starter-basic-bootstrap",
 };

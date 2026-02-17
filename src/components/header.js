@@ -13,31 +13,30 @@ const Header = ({ siteTitle }) => (
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <NavItem href="/about">
+        <NavItem>
           <Nav.Link
             as={Link}
-            style={{ align: "bottom" }}
             activeClassName="active"
             to="/information"
           >
             記事一覧
           </Nav.Link>
         </NavItem>
-        <NavItem href="/about">
+        <NavItem>
           <Nav.Link
             as={Link}
-            style={{ align: "bottom" }}
             activeClassName="active"
-            to="/contact">
+            to="/contact"
+          >
             お問い合わせ
           </Nav.Link>
         </NavItem>
-        <NavItem href="/about">
+        <NavItem>
           <Nav.Link
             as={Link}
-            style={{ align: "bottom" }}
             activeClassName="active"
-            to="/abouthis">
+            to="/abouthis"
+          >
             DevpediaCodeについて
           </Nav.Link>
         </NavItem>
