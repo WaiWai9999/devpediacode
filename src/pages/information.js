@@ -97,7 +97,7 @@ const InformationPage = ({ location, data }) => {
 
       <div className="back-link-row">
         <Link to="/" className="btn btn-primary back-link-design">
-          Back to Home
+          ホームへ戻る
         </Link>
       </div>
     </Layout>
