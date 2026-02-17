@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "gatsby";
 import Layout from "../components/layout";
 import SEO from "../components/seo";
-import "../style/common.scss";
+import "../style/layout.scss";
 
 const privacypolicy = () => (
   <Layout>
-    <SEO title="termsofuse" />
+    <SEO title="プライバシーポリシー" />
     <div className="about-container">
       <h1>プライバシーポリシー</h1>
       <p>
@@ -99,13 +99,13 @@ const privacypolicy = () => (
         </li>
       </ol>
       <h3>第10条 (お問い合わせ窓口)</h3>
-      本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。
-      <br />
-      <Link to={"/contact"}>お問い合わせ</Link>
-      <br />
-      <br />
-      当社が別途定める場合を除いて，変更後のプライバシーポリシーは，本ウェブサイトに掲載したときから効力を生じるものとします。
-      <br />
+      <p>本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。</p>
+      <p>
+        <Link to={"/contact"}>お問い合わせ</Link>
+      </p>
+      <p>
+        当社が別途定める場合を除いて，変更後のプライバシーポリシーは，本ウェブサイトに掲載したときから効力を生じるものとします。
+      </p>
     </div>
   </Layout>
 );
